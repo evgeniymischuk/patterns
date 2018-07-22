@@ -1,17 +1,21 @@
 package factoryMethod;
 
-import java.util.Random;
-
 public class FactoryMethodMain {
     public static void main(String[] args) {
-        CreatorGravityObject creatorGravityObject = getCreatorByRandom();
-
-        GravityObject gravityObject = creatorGravityObject.createGravityObject();
-        gravityObject.activate();
+        activateObject("knife");
+        activateObject("fork");
     }
 
-    private static CreatorGravityObject getCreatorByRandom() {
-        Random random = new Random();
-        return random.nextBoolean() ? new ForkCreatorGravityObject() : new KnifeCreatorGravityObject();
+    private static void activateObject(String name) {
+        CreatorGravityObject creatorGravityObject;
+        if ("fork".equalsIgnoreCase(name)) {
+            creatorGravityObject = new ForkCreatorGravityObject();
+        } else if ("knife".equalsIgnoreCase(name)) {
+            creatorGravityObject = new KnifeCreatorGravityObject();
+        } else {
+            throw new RuntimeException("wtf need object");
+        }
+        GravityObject gravityObject = creatorGravityObject.createGravityObject();
+        gravityObject.activate();
     }
 }
